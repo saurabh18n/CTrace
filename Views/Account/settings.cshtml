@@ -1,0 +1,185 @@
+﻿@using Microsoft.AspNetCore.Authentication.Cookies
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        var CurrUserName = '@User.Identity.Name'
+        $('#updateusername').on('click', (event) => {
+            toggleLoading(event.target)
+            let username = $('#username').val();
+            if (username == '') {
+                showMessage("Please enter new username", "Invalid Username", "Just Now")
+            } else if (username == CurrUserName) {
+                showMessage("There is no change in username", "Nothing to change", "Just Now")
+            } else if (!RegExp(/^[a-zA-z0-9]*$/).test(username)) {
+                showMessage("Invalid Charectors in username a-z A-Z and 0-9 are accepted", "Invalid Username", "Just Now")
+            } else {
+                $.ajax({
+                type: "POST",
+                    data: JSON.stringify({username:username}),
+                headers:{
+                "RequestVerificationToken": gettoken()
+            },
+                contentType: "application/json;",
+                url: '@Url.Action(action: "ChangeUserName")',
+                success: function (response) {
+                    if (response.success) {
+                        CurrUserName = username;
+                        $('#username').val(username);
+                        showMessage(response.message, "Success", "Just Now", () => { location.replace('/account/logout') }, () => { location.replace('/account/logout') });
+                    } else {
+                        showMessage(response.message, "Username Already exists", "Just Now");
+                    }
+                },
+                error: function (response) {
+                    showMessage("Error", response.message, "Just Now");
+                }
+            });
+
+            }
+            toggleLoading(event.target)
+        });
+
+        $('#updatepassword').on('click', () => {
+            toggleLoading(event.target)
+            let oldpass = $('#oldpass').val()
+            let newpass = $('#newpass').val()
+            let confirmpass = $('#confirmpass').val()
+            if (oldpass == "" || newpass == "" || confirmpass == "") {
+                showMessage("Please complete all fields", "Invalid Input")
+            } else if (newpass != confirmpass) {
+                showMessage("Password and confirm pass do not match", "Invalid Input")
+            } else if (newpass.length < 5) {
+                showMessage("Password must 5 or more charectors", "Invalid Input")
+            } else {
+                $.ajax({
+                type: "POST",
+                    data: JSON.stringify({ old_password:oldpass,password:newpass,confirm_password:confirmpass}),
+                headers:{
+                "RequestVerificationToken": gettoken()
+            },
+                contentType: "application/json;",
+                url: '@Url.Action(action: "ChangePassword")',
+                success: function (response) {
+                    if (response.success) {
+                        let oldpass = $('#oldpass').val('')
+                        let newpass = $('#newpass').val('')
+                        let confirmpass = $('#confirmpass').val('')
+                        showMessage(response.message, "Success", "Just Now", () => { location.replace('/account/logout') }, () => { location.replace('/account/logout') });
+                    } else {
+                        let oldpass = $('#oldpass').val('')
+                        let newpass = $('#newpass').val('')
+                        let confirmpass = $('#confirmpass').val('')
+                        showMessage(response.message, "Error", "Just Now");
+                    }
+                },
+                    error: function (response) {
+                        let oldpass = $('#oldpass').val('')
+                        let newpass = $('#newpass').val('')
+                        let confirmpass = $('#confirmpass').val('')
+                    showMessage(response.message,"Error", "Just Now");
+                }
+            });
+            }
+            toggleLoading(event.target)
+        })
+
+
+    </script>
+}
+
+<div class="row">
+    <div class="col-xl-6 mx-auto">
+        <h3> Hello @User.Claims.First(c => c.Type == "FullName").Value </h3>
+
+        <div class="accordion accordion-flush" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-coreui-toggle="collapse" data-coreui-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Change User Name
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-coreui-parent="#accordionExample">
+                    <div class="accordion-body m-3">
+                        <div class="d-block">
+                            <label for="exampleFormControlInput1" class="form-label">New Username</label>
+                            <input type="text" class="form-control" id="username" placeholder="Username" value="@User.Identity.Name" autocomplete="off">
+                            <button id="updateusername" class="form-control btn btn-primary load-button my-2" type="button">
+                                <div id="noload">
+                                    <svg class="icon me-2">
+                                        <use xlink:href="vendors/coreui/icons/svg/free.svg#cil-save"></use>
+                                    </svg>Save
+                                </div>
+                                <div id="load">
+                                    <div class="spinner-border" role="status" style="width:16px;height:16px">
+                                    </div>Saving
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-coreui-toggle="collapse" data-coreui-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Change Password
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-coreui-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="d-block">
+                            <input type="password" class="form-control mb-1" id="oldpass" placeholder="Old Password" autocomplete="off">
+                            <input type="password" class="form-control mb-1" id="newpass" placeholder="New Password" autocomplete="off">
+                            <input type="password" class="form-control mb-1" id="confirmpass" placeholder="Confirm Password" autocomplete="off">
+
+
+                            <button id="updatepassword" class="form-control btn btn-primary load-button my-2" type="button">
+                                <div id="noload">
+                                    <svg class="icon me-2">
+                                        <use xlink:href="vendors/coreui/icons/svg/free.svg#cil-save"></use>
+                                    </svg>Save
+                                </div>
+                                <div id="load">
+                                    <div class="spinner-border" role="status" style="width:16px;height:16px">
+                                    </div>Updating
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-coreui-toggle="collapse" data-coreui-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Change Display Name
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-coreui-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="d-block">
+                            <input type="text" class="form-control mb-1" id="firstname" placeholder="First Name" autocomplete="off">
+                            <input type="text" class="form-control mb-1" id="lastname" placeholder="Last Name" autocomplete="off">
+
+
+                            <button id="sendbutton" class="form-control btn btn-primary load-button my-2" type="button">
+                                <div id="noload">
+                                    <svg class="icon me-2">
+                                        <use xlink:href="vendors/coreui/icons/svg/free.svg#cil-save"></use>
+                                    </svg>Save
+                                </div>
+                                <div id="load">
+                                    <div class="spinner-border" role="status" style="width:16px;height:16px">
+                                    </div>Updating
+                                </div>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>

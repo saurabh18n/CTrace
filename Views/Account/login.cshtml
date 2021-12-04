@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "login";
+}
+@{
+    Layout = "";
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CTrace-Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="margin:0px">
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center dark:bg-transparent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card-group d-block d-md-flex row">
+                        <div class="card col-md-7 p-4 mb-0">
+                            <div class="card-body">
+                                <h1>Login</h1>
+                                <p class="text-medium-emphasis">Sign In to your account</p>
+                                <form method="post" asp-controller="Account" asp-action="Login" enctype="multipart/form-data">
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" name="username" id="username" type="text" placeholder="Mobile Number">
+                                    </div>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-primary px-4" type="submit">Login</button>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <button class="btn btn-link px-0" type="button">Forgot password?</button>
+                                        </div>
+                                    </div>
+                                </form>                                
+                            </div>
+                        </div>
+                        <div class="card col-md-5 text-white bg-primary py-5">
+                            <div class="card-body text-center">
+                                <div>
+                                    <h2>Sign up</h2>
+                                    <p>Not Registered to portal. Please Sign Up here</p>
+                                    <button class="btn btn-lg btn-outline-light mt-3" type="button">Register Now!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
