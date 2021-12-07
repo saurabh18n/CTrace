@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 using CTrace.Data;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Principal;
 //using CTrace.Helpers;
 
 
@@ -32,11 +34,11 @@ namespace CTrace
             services.AddControllersWithViews();
             services.AddDbContext<DataContext>(option =>
             {
-                //option.UseLoggerFactory(MyLoggerFactory);
-                option.UseSqlServer(Configuration["DefaultDB"]);
+                option.UseSqlServer(Configuration["DefaultDB"]).EnableSensitiveDataLogging();
             });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                   .AddCookie(options =>
+                .AddCookie(options =>
                    {
                        options.LoginPath = "/account/login";
                        options.AccessDeniedPath = "/account/noaccess";

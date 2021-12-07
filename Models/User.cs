@@ -14,7 +14,7 @@ namespace CTrace.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("user_id")]
-        public Int32 user_id { get; set; }
+        public Guid user_id { get; set; }
 
         [Column("user_fname"),Required]
         public string user_fname { get; set; }
@@ -24,7 +24,7 @@ namespace CTrace.Models
 
         [MinLength(10),MaxLength(10)]
         [Column("user_mobile"),Required]
-        public string user_name { get; set; }
+        public string user_mobile { get; set; }
 
         [Column("user_isadmin"), Required]
         public bool? user_isadmin { get; set; }

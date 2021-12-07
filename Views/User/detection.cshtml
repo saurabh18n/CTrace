@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Report Detection";
+    DateTime Now = DateTime.Now;
+}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card mb-4 mx-4">
+            <div class="card-body p-4">
+                <h5 class="card-title">Report Positive Detection</h5>
+                <form asp-action="detection" asp-controller="user" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()                   
+                    <div class="input-group my-3">
+                        <span class="input-group-text">
+                            <svg class="icon">
+                                <use xlink:href="/cui/assets/svg/free.svg#cil-clock"></use>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="datetime-local" name="detectttime" required max='@Now.ToString("yyyy-MM-dd")'>
+                    </div>
+                    <div class="input-group mb-4 text-center">
+                        <button class="btn btn-block btn-danger mx-auto" type="submit">Report Detection</button>
+                    </div>
+                </form>
+            </div>
+            <div class="alert mx-4 alert-danger @(string.IsNullOrEmpty((string)ViewBag.ErrorMessage) ? " d-none" : "" )" role="alert">
+                <p class="mx-auto my-auto p-0">@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>

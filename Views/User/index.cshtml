@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CTrace.ViewModels.ContactVM>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @{ 
+                        @Html.DisplayFor(modelItem => item.Name);
+                    }
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

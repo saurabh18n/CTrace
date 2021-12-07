@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "View";
+    DateTime Now = DateTime.Now;
+}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card mb-4 mx-4">
+            <div class="card-body p-4">
+                <h5 class="card-title">Add Contact</h5>
+                <form asp-action="contact" asp-controller="user" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg class="icon">
+                                <use xlink:href="/cui/assets/svg/free.svg#cil-user"></use>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="text" name="fname" placeholder="First name" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg class="icon">
+                                <use xlink:href="/cui/assets/svg/free.svg#cil-user"></use>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="text" name="lname" placeholder="Last Name" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg class="icon">
+                                <use xlink:href="/cui/assets/svg/free.svg#cil-mobile"></use>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="text" name="mobile" placeholder="Mobile" required max="10" min="10" pattern="[0-9]{10}" title="Ten Digit Mobile Number ">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <svg class="icon">
+                                <use xlink:href="/cui/assets/svg/free.svg#cil-clock"></use>
+                            </svg>
+                        </span>
+                        <input class="form-control" type="datetime-local" name="contacttime" required max='@Now.ToString("yyyy-MM-dd")'>
+                    </div>
+                    <div class="input-group mb-4 text-center">
+                        <button class="btn btn-block btn-success mx-auto" type="submit">Report Contact</button>
+                    </div>
+                </form>
+            </div>
+            <div class="alert mx-4 alert-danger @(string.IsNullOrEmpty((string)ViewBag.ErrorMessage) ? " d-none" : "" )" role="alert">
+                <p class="mx-auto my-auto p-0">@ViewBag.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
