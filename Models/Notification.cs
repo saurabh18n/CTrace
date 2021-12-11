@@ -18,12 +18,9 @@ namespace CTrace.Models
 
         [Required]
         [Column("notif_user")]
-<<<<<<< HEAD
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
-=======
         public virtual User notif_user { get; set; }
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
 
         [Required]
         [Column("notif_text")]
@@ -37,10 +34,6 @@ namespace CTrace.Models
         [Column("notif_created")]
         public DateTime notif_created { get; set; }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
         [Column("notif_ṛead")]
         public DateTime notif_ṛead { get; set; }
     }

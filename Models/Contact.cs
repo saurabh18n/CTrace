@@ -17,23 +17,16 @@ namespace CTrace.Models
 
         [Required]
         [Column("contact_primaryuserid")]
-<<<<<<< HEAD
         public Guid PrimaryUserId { get; set; }
-=======
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
         public virtual User PrimaryUser { get; set; }
 
         [Required]
         [Column("contact_seconderyuserid")]
-<<<<<<< HEAD
         public Guid SecondUserId { get; set; }
-=======
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
         public virtual User SecondUser { get; set; }
 
         [Required]
         [Column("contact_time")]
-<<<<<<< HEAD
         public DateTime Time { get; set; }
 
         [Required]
@@ -56,11 +49,3 @@ namespace CTrace.ViewModels
         public string Detected { get; set; }
     }
 }
-=======
-        public DateTime contact_created { get; set; }
-
-        [Column("contact_createdby")]
-        public virtual User CreatedBy { get; set; }
-    }
-}
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e

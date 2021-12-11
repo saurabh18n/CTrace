@@ -16,10 +16,7 @@ namespace CTrace.Models
 
         [Required]
         [Column("detection_user")]
-<<<<<<< HEAD
         public Guid UserId { get; set; }
-=======
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
         public virtual User User { get; set; }
 
         [Required]
@@ -28,10 +25,7 @@ namespace CTrace.Models
 
         [Required]
         [Column("contact_createdby")]
-<<<<<<< HEAD
         public Guid CreatedById { get; set; }
-=======
->>>>>>> f0d7e8db4b0498926dd526398b8c1de19f1e521e
         public virtual User CreatedBy { get; set; }
     }
 }

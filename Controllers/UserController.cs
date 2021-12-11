@@ -22,7 +22,7 @@ namespace CTrace.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
             //var query = from contact in _dbConnection.Set<Contact>().Where(C => C.PrimaryUser.user_mobile == User.Identity.Name && C.Reported >= DateTime.Now.AddDays(-15))
