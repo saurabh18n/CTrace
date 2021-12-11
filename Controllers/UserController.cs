@@ -66,7 +66,7 @@ namespace CTrace.Controllers
         public IActionResult Contact_post(string fname, string lname, string mobile, DateTime contacttime)
         {
             if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(lname) || string.IsNullOrEmpty(mobile) || contacttime == null)
-            {
+        {
                 ViewBag.ErrorMessage = "Missing/Invalid Values Please try again";
                 return View();
             }

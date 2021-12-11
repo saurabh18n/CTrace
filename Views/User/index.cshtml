@@ -19,16 +19,16 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
                 <th>
                     @{ 
                         @Html.DisplayFor(modelItem => item.Name);
                     }
                 </th>
-                <td>
+            <td>
                     @Html.DisplayFor(modelItem => item.Time)
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+}
     </tbody>
 </table>
