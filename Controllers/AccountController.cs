@@ -76,7 +76,7 @@ namespace CTrace.Controllers
                 var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, dbUser.user_mobile),
-                        new Claim("FullName",$"{dbUser.user_fname} {dbUser.user_lname}"),
+                        new Claim("FullName",$"{dbUser.user_name}"),
                         new Claim("ID",dbUser.user_id.ToString()),
                         new Claim(ClaimTypes.Role,(Boolean)dbUser.user_isadmin ? "Administrator" : "User"),
                     };
@@ -145,7 +145,7 @@ namespace CTrace.Controllers
                 var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, dbUser.user_mobile),
-                        new Claim("FullName",$"{dbUser.user_fname} {dbUser.user_lname}"),
+                        new Claim("FullName", dbUser.user_name),
                         new Claim("ID",dbUser.user_id.ToString()),
                         new Claim(ClaimTypes.Role,(Boolean)dbUser.user_isadmin ? "Administrator" : "User"),
                     };
@@ -180,9 +180,9 @@ namespace CTrace.Controllers
             return View();
         }
         [AllowAnonymous, HttpPost, ActionName("register"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register_post(string mobile, string password, string fname, string lname)
+        public async Task<IActionResult> Register_post(string mobile, string password, string name)
         {
-            if(string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(lname))
+            if(string.IsNullOrEmpty(mobile) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(name))
             {
                 ViewBag.ErrorMessage = "Missing Field Values";
                 return View("register");
@@ -201,8 +201,7 @@ namespace CTrace.Controllers
             await _dbConnection.Users.AddAsync(new User
             {
                 user_mobile = mobile,
-                user_fname = fname,
-                user_lname = lname,
+                user_name = name,
                 user_salt = salt,
                 user_pass = passwordhash,
                 user_isadmin = false

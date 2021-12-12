@@ -126,18 +126,13 @@ namespace CTrace.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("user_id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("1221cbac-d7f5-4e4a-a7de-2984670a3897"));
+                        .HasDefaultValue(new Guid("d5b729e2-18ed-49d4-8948-587f1df44485"));
 
                     b.Property<byte>("user_failcount")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("user_failcount")
                         .HasColumnType("tinyint")
                         .HasDefaultValueSql("0");
-
-                    b.Property<string>("user_fname")
-                        .IsRequired()
-                        .HasColumnName("user_fname")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("user_isadmin")
                         .IsRequired()
@@ -150,15 +145,16 @@ namespace CTrace.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("user_lname")
-                        .HasColumnName("user_lname")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("user_mobile")
                         .IsRequired()
                         .HasColumnName("user_mobile")
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
+
+                    b.Property<string>("user_name")
+                        .IsRequired()
+                        .HasColumnName("user_name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("user_pass")
                         .IsRequired()
@@ -182,14 +178,14 @@ namespace CTrace.Migrations
                     b.HasData(
                         new
                         {
-                            user_id = new Guid("ea045824-4fb8-4a35-a93a-39b1729feb8d"),
+                            user_id = new Guid("a07c0078-32d4-43d8-80ea-6f18388b99df"),
                             user_failcount = (byte)0,
-                            user_fname = "Admin",
                             user_isadmin = true,
                             user_lastlogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             user_mobile = "admin",
-                            user_pass = "UiJkjt5hqJAIoYKrrFOo0g7eq/fZc5PVZi5vzLKvb0Q=",
-                            user_salt = "pZMNA/hrS+VOQ38sN1fHug=="
+                            user_name = "Admin",
+                            user_pass = "53pFNdTQOd79WeRf0wQfxJvFBKT1qThh3FeA8FaS6go=",
+                            user_salt = "T1SWFqtQpE8g4SSxecQ5GQ=="
                         });
                 });
 

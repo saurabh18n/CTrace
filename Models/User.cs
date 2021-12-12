@@ -16,11 +16,8 @@ namespace CTrace.Models
         [Column("user_id")]
         public Guid user_id { get; set; }
 
-        [Column("user_fname"),Required]
-        public string user_fname { get; set; }
-
-        [Column("user_lname")]
-        public string user_lname { get; set; }
+        [Column("user_name"),Required]
+        public string user_name { get; set; }
 
         [MinLength(10),MaxLength(10)]
         [Column("user_mobile"),Required]

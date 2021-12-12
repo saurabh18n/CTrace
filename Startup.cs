@@ -32,10 +32,8 @@ namespace CTrace
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<DataContext>(option =>
-            {
-                option.UseSqlServer(Configuration["DefaultDB"]).EnableSensitiveDataLogging();
-            });
+
+            services.AddDbContext<DataContext>(option =>option.UseSqlServer(Configuration["DefaultDB"]).EnableSensitiveDataLogging());
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

@@ -236,7 +236,7 @@
                         $('#notifmessage strong').text(`You have ${data.length} new notification`)
                         data.forEach(notif => {
                             $('#notifmenu').append(`
-                                <a class="dropdown-item" href="${notif.notif_redirect}">
+                                <a class="dropdown-item" href="#" onclick=handleNotificationClick('${notif.notif_redirect}')>
                                     <svg class="icon me-2 text-success">
                                         <use xlink:href="/cui/assets/svg/free.svg#cil-user-follow"></use>
                                     </svg>${notif.notif_text}
@@ -251,6 +251,17 @@
                 });
             }
         });
+        function gettoken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+    }
+    function handleNotificationClick(url) {
+        $.get("@Url.Action("notifclear", "User")", function (data, status) {
+            console.log('data', data)
+            location.replace(url)
+         });
+    }
     </script>
 </body>
 </html>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTrace.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211205184532_contactupdate3")]
-    partial class contactupdate3
+    [Migration("20211211194305_1")]
+    partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,26 +28,33 @@ namespace CTrace.Migrations
                         .HasColumnName("contact_id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("CreatedByuser_id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnName("contact_createdbyid")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PrimaryUseruser_id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PrimaryUserId")
+                        .HasColumnName("contact_primaryuserid")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SecondUseruser_id")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Reported")
+                        .HasColumnName("contact_reported")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("contact_created")
+                    b.Property<Guid>("SecondUserId")
+                        .HasColumnName("contact_seconderyuserid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Time")
                         .HasColumnName("contact_time")
                         .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
-                    b.HasIndex("CreatedByuser_id");
+                    b.HasIndex("CreatedById");
 
-                    b.HasIndex("PrimaryUseruser_id");
+                    b.HasIndex("PrimaryUserId");
 
-                    b.HasIndex("SecondUseruser_id");
+                    b.HasIndex("SecondUserId");
 
                     b.ToTable("tab_contact");
                 });
@@ -59,21 +66,23 @@ namespace CTrace.Migrations
                         .HasColumnName("detection_id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CreatedByuser_id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnName("contact_createdby")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DetectedAt")
                         .HasColumnName("detection_time")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("user_id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("detection_user")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("id");
 
-                    b.HasIndex("CreatedByuser_id");
+                    b.HasIndex("CreatedById");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("tab_detection");
                 });
@@ -83,6 +92,10 @@ namespace CTrace.Migrations
                     b.Property<Guid>("notif_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("notif_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnName("notif_user")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("notif_created")
@@ -98,27 +111,24 @@ namespace CTrace.Migrations
                         .HasColumnName("notif_text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("notif_useruser_id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("notif_ṛead")
                         .HasColumnName("notif_ṛead")
                         .HasColumnType("datetime2");
 
                     b.HasKey("notif_id");
 
-                    b.HasIndex("notif_useruser_id");
+                    b.HasIndex("UserId");
 
                     b.ToTable("tab_notification");
                 });
 
             modelBuilder.Entity("CTrace.Models.User", b =>
                 {
-                    b.Property<int>("user_id")
+                    b.Property<Guid>("user_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("user_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("fe35927f-049a-4768-817b-6808d37113fa"));
 
                     b.Property<byte>("user_failcount")
                         .ValueGeneratedOnAdd()
@@ -146,7 +156,7 @@ namespace CTrace.Migrations
                         .HasColumnName("user_lname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("user_name")
+                    b.Property<string>("user_mobile")
                         .IsRequired()
                         .HasColumnName("user_mobile")
                         .HasColumnType("nvarchar(10)")
@@ -166,7 +176,7 @@ namespace CTrace.Migrations
 
                     b.HasKey("user_id");
 
-                    b.HasIndex("user_name")
+                    b.HasIndex("user_mobile")
                         .IsUnique();
 
                     b.ToTable("tab_users");
@@ -174,14 +184,14 @@ namespace CTrace.Migrations
                     b.HasData(
                         new
                         {
-                            user_id = 1,
+                            user_id = new Guid("69c3e099-d215-4b8d-9192-d204f18168a4"),
                             user_failcount = (byte)0,
                             user_fname = "Admin",
                             user_isadmin = true,
                             user_lastlogin = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            user_name = "admin",
-                            user_pass = "7yqhZk6N5bvBDekEL0wq8cL2nbYtZChYu9BJqSLXpuA=",
-                            user_salt = "SxOURuX3iCNyJmm2RpfIHg=="
+                            user_mobile = "admin",
+                            user_pass = "Qosok1wMdRHHX+CntKHYubf1j8eK3h6oxjl34mt/bOM=",
+                            user_salt = "2A/eYfNMF4DKNRzOVRAReQ=="
                         });
                 });
 
@@ -189,18 +199,19 @@ namespace CTrace.Migrations
                 {
                     b.HasOne("CTrace.Models.User", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("CreatedByuser_id")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("CTrace.Models.User", "PrimaryUser")
                         .WithMany()
-                        .HasForeignKey("PrimaryUseruser_id")
+                        .HasForeignKey("PrimaryUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("CTrace.Models.User", "SecondUser")
                         .WithMany()
-                        .HasForeignKey("SecondUseruser_id")
+                        .HasForeignKey("SecondUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
@@ -209,22 +220,22 @@ namespace CTrace.Migrations
                 {
                     b.HasOne("CTrace.Models.User", "CreatedBy")
                         .WithMany()
-                        .HasForeignKey("CreatedByuser_id")
+                        .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("CTrace.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("user_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CTrace.Models.Notification", b =>
                 {
-                    b.HasOne("CTrace.Models.User", "notif_user")
+                    b.HasOne("CTrace.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("notif_useruser_id")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });

@@ -46,6 +46,11 @@ namespace CTrace.ViewModels
         public Guid Userid { get; set; }
         public string Name { get; set; }
         public DateTime Time { get; set; }
-        public string Detected { get; set; }
+        public bool Detected { get; set; }
+    }
+    public class ContStatus
+    {
+        public Guid userid { get; set; }
+        public IEnumerable<ContactVM> Contacts { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace CTrace.Migrations
                 name: "tab_users",
                 columns: table => new
                 {
-                    user_id = table.Column<Guid>(nullable: false, defaultValue: new Guid("1221cbac-d7f5-4e4a-a7de-2984670a3897")),
+                    user_id = table.Column<Guid>(nullable: false, defaultValue: new Guid("fe35927f-049a-4768-817b-6808d37113fa")),
                     user_fname = table.Column<string>(nullable: false),
                     user_lname = table.Column<string>(nullable: true),
                     user_mobile = table.Column<string>(maxLength: 10, nullable: false),
@@ -105,7 +105,7 @@ namespace CTrace.Migrations
             migrationBuilder.InsertData(
                 table: "tab_users",
                 columns: new[] { "user_id", "user_fname", "user_isadmin", "user_lname", "user_mobile", "user_pass", "user_salt" },
-                values: new object[] { new Guid("ea045824-4fb8-4a35-a93a-39b1729feb8d"), "Admin", true, null, "admin", "UiJkjt5hqJAIoYKrrFOo0g7eq/fZc5PVZi5vzLKvb0Q=", "pZMNA/hrS+VOQ38sN1fHug==" });
+                values: new object[] { new Guid("69c3e099-d215-4b8d-9192-d204f18168a4"), "Admin", true, null, "admin", "Qosok1wMdRHHX+CntKHYubf1j8eK3h6oxjl34mt/bOM=", "2A/eYfNMF4DKNRzOVRAReQ==" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_tab_contact_contact_createdbyid",

@@ -20,12 +20,10 @@ namespace CTrace.Models
         [Column("notif_user")]
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
-        public virtual User notif_user { get; set; }
 
         [Required]
         [Column("notif_text")]
-        public string notif_text { get; set; }
-        
+        public string notif_text { get; set; }        
 
         [Column("notif_redirect")]
         public string notif_redirect { get; set; }
